@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🌙 Farah Ramzan Companion 2026</title>
+
+<!-- ══ PWA META TAGS ══ -->
+<meta name="theme-color" content="#040c04">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ramzan 2026">
+<meta name="application-name" content="Farah Ramzan 2026">
+<meta name="description" content="Farah, Mathura ke liye Ramzan 1447 ka companion app">
+<meta name="msapplication-TileColor" content="#040c04">
+
+<!-- ══ PWA MANIFEST (Inline) ══ -->
+<!-- Apple Touch Icons (inline SVG as data URI) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgZmlsbD0iIzA0MGMwNCIgcng9IjIwIi8+PHRleHQgeT0iMTQwIiB4PSIxNSIgZm9udC1zaXplPSIxMzAiPvCfjIk8L3RleHQ+PC9zdmc+">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDQwYzA0IiByeD0iOCIvPjx0ZXh0IHk9IjUyIiB4PSI0IiBmb250LXNpemU9IjUyIj7wn4yJPC90ZXh0Pjwvc3ZnPg==">
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stars"></div>
+
+<!-- ══════════════ LOGIN SCREEN ══════════════ -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-box">
+    <!-- Three-dot settings menu -->
+    <button class="ln-menu-btn" onclick="toggleLnMenu(event)" title="Settings">⋮</button>
+    <div class="ln-menu-drop" id="ln-menu">
+      <div class="ln-menu-hdr">⚙️ Quick Settings</div>
+
+      <!-- Dark/Light Mode -->
+      <div class="ln-menu-row" onclick="lnToggleTheme()">
+        <div class="ln-menu-row-left">
+          <span class="ln-menu-icon" id="ln-theme-ic">🌙</span>
+          <div>
+            <div class="ln-menu-txt">Dark / Light Mode</div>
+            <div class="ln-menu-sub" id="ln-theme-st">Dark Mode ON</div>
+          </div>
+        </div>
+        <div id="ln-theme-tog" style="font-size:22px">🌑</div>
+      </div>
+
+      <div class="ln-menu-div"></div>
+
+      <!-- Font Size -->
+      <div class="ln-menu-hdr">Font Size</div>
+      <div class="ln-fsz">
+        <button class="ln-fsz-btn" id="ln-fs-s" onclick="lnSetFont('small')">A<br><span style="font-size:9px">Chhota</span></button>
+        <button class="ln-fsz-btn active" id="ln-fs-m" onclick="lnSetFont('medium')">A<br><span style="font-size:9px">Beech</span></button>
+        <button class="ln-fsz-btn" id="ln-fs-l" onclick="lnSetFont('large')">A<br><span style="font-size:9px">Bada</span></button>
+      </div>
+
+      <div class="ln-menu-div"></div>
+
+      <!-- Stars toggle -->
+      <div class="ln-menu-row" onclick="lnToggleStars()">
+        <div class="ln-menu-row-left">
+          <span class="ln-menu-icon">✨</span>
+          <div>
+            <div class="ln-menu-txt">Taare</div>
+            <div class="ln-menu-sub" id="ln-stars-st">Animation ON</div>
+          </div>
+        </div>
+        <div id="ln-stars-tog" style="font-size:22px">⭐</div>
+      </div>
+
+    </div>
+    <span class="login-moon">🌙</span>
+    <div class="login-title">Farah Ramzan Companion</div>
+    <div class="login-sub">Ramadan 1447 · Farah, Mathura</div>
+    <div class="login-bis">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="login-lbl">Aapka Naam</div>
+    <input class="login-inp" id="ln-name" type="text" placeholder="Jaise: Fatima, Ahmed, Zaid..." maxlength="30">
+    <div class="login-lbl">Mobile Number</div>
+    <input class="login-inp" id="ln-phone" type="tel" placeholder="10 ank ka number likhein" maxlength="10" pattern="[0-9]{10}">
+    <button class="login-btn" onclick="doLogin()">Shuru Karein →</button>
+    <div class="login-err" id="ln-err"></div>
+    <div class="login-note">📍 Farah, Mathura, UP · Ramzan 1447</div>
+  </div>
+</div>
+
+<!-- ══════════════ ADMIN PANEL ══════════════ -->
+<div class="admin-overlay" id="admin-overlay">
+  <div style="max-width:480px;margin:0 auto;padding-bottom:30px">
+
+    <!-- Admin Header -->
+    <div class="admin-top">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">⚙️</div>
+        <div>
+          <div class="admin-title">Admin Panel</div>
+          <div style="font-size:10px;color:var(--txtd)">Farah Ramzan 2026</div>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closeAdmin()">✕ Wapas</button>
+    </div>
+
+    <!-- Stats Row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+      <div class="admin-card" style="text-align:center;padding:12px 8px">
+        <div style="font-size:22px;font-family:'Cinzel Decorative',serif;color:var(--gold)" id="adm-users">—</div>
+        <div style="font-size:9px;color:var(--txtd);letter-spacing:1px;text-transform:uppercase;margin-top:2px">👥 Users</div>
+      </div>
+      <div class="admin-card" style="text-align:center;padding:12px 8px">
+        <div style="font-size:22px;font-family:'Cinzel Decorative',serif;color:var(--gold)" id="adm-roza">—</div>
+        <div style="font-size:9px;color:var(--txtd);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Aaj Roza</div>
+      </div>
+      <div class="admin-card" style="text-align:center;padding:12px 8px">
+        <div style="font-size:22px;font-family:'Cinzel Decorative',serif;color:var(--gold)" id="adm-left">—</div>
+        <div style="font-size:9px;color:var(--txtd);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Din Baaki</div>
+      </div>
+    </div>
+
+    <!-- TODAY TIME QUICK EDIT -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div class="admin-card-title">⚡ Aaj Ka Waqt — Quick Edit</div>
+      <div style="font-size:11px;color:var(--txtd);margin-bottom:12px">Sirf aaj ka Sehri/Iftar waqt jaldi change karein</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div>
+          <div style="font-size:10px;color:var(--txts);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">🌙 Sehri (Imsak)</div>
+          <input class="tt-inp" id="quick-sehri" type="time" style="width:100%;padding:10px;font-size:14px;border-radius:10px">
+          <div style="font-size:9px;color:var(--txtd);margin-top:3px">Current: <span id="cur-sehri">—</span></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--txts);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">🌅 Iftar (Maghrib)</div>
+          <input class="tt-inp" id="quick-iftar" type="time" style="width:100%;padding:10px;font-size:14px;border-radius:10px">
+          <div style="font-size:9px;color:var(--txtd);margin-top:3px">Current: <span id="cur-iftar">—</span></div>
+        </div>
+      </div>
+      <button class="btn bg" onclick="saveQuickTime()" style="font-size:13px">⚡ Abhi Save Karein</button>
+      <div class="save-flash" id="quick-flash"></div>
+    </div>
+
+    <!-- FULL TIMETABLE EDIT -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div class="admin-card-title">🗓 Poori Timetable Edit (Roza 1–30)</div>
+      <div style="font-size:11px;color:var(--txtd);margin-bottom:8px">24-hour format mein — HH:MM likhen (jaise 05:28 ya 18:16)</div>
+
+      <!-- Search/Filter -->
+      <div style="position:relative;margin-bottom:10px">
+        <input id="tt-search" type="number" min="1" max="30" placeholder="🔍 Roza number se dhundho (1-30)..." 
+          style="width:100%;background:rgba(4,12,4,.8);border:1px solid var(--brd);border-radius:8px;padding:9px 12px;font-family:'Raleway',sans-serif;font-size:12px;color:var(--txt);outline:none"
+          oninput="filterTTRows(this.value)">
+      </div>
+
+      <div style="display:grid;grid-template-columns:32px 76px 1fr 1fr;gap:4px;padding:6px 8px;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--txtd);font-weight:600;margin-bottom:4px">
+        <div>#</div><div>Tarikh</div><div>🌙 Sehri</div><div>🌅 Iftar</div>
+      </div>
+      <div id="admin-tt-rows" style="max-height:360px;overflow-y:auto"></div>
+      <button class="btn bg mt10" onclick="saveTT()">💾 Poori Timetable Save Karein</button>
+      <div class="save-flash" id="tt-flash"></div>
+    </div>
+
+    <!-- NAMAZ TIMES EDIT -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div class="admin-card-title">🕌 Namaz Awqat Edit Karein</div>
+      <div style="font-size:11px;color:var(--txtd);margin-bottom:12px">Farah, Mathura ke 5 waqt namaz ka sahi waqt set karein</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:grid;grid-template-columns:28px 1fr 1fr;gap:8px;align-items:center">
+          <div style="font-size:16px">🌙</div>
+          <div style="font-size:12px;color:var(--txts);font-weight:600">Fajr</div>
+          <input class="tt-inp" id="nz-fajr" type="time" style="width:100%;padding:9px;font-size:13px">
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr 1fr;gap:8px;align-items:center">
+          <div style="font-size:16px">☀️</div>
+          <div style="font-size:12px;color:var(--txts);font-weight:600">Dhuhr</div>
+          <input class="tt-inp" id="nz-dhuhr" type="time" style="width:100%;padding:9px;font-size:13px">
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr 1fr;gap:8px;align-items:center">
+          <div style="font-size:16px">🌤</div>
+          <div style="font-size:12px;color:var(--txts);font-weight:600">Asr</div>
+          <input class="tt-inp" id="nz-asr" type="time" style="width:100%;padding:9px;font-size:13px">
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr 1fr;gap:8px;align-items:center">
+          <div style="font-size:16px">🌅</div>
+          <div style="font-size:12px;color:var(--gold);font-weight:600">Maghrib (Iftar)</div>
+          <input class="tt-inp" id="nz-maghrib" type="time" style="width:100%;padding:9px;font-size:13px;border-color:rgba(255,215,0,.3)">
+        </div>
+        <div style="display:grid;grid-template-columns:28px 1fr 1fr;gap:8px;align-items:center">
+          <div style="font-size:16px">🌑</div>
+          <div style="font-size:12px;color:var(--txts);font-weight:600">Isha + Tarawih</div>
+          <input class="tt-inp" id="nz-isha" type="time" style="width:100%;padding:9px;font-size:13px">
+        </div>
+      </div>
+      <button class="btn bg mt10" onclick="saveNamazTimes()">💾 Namaz Awqat Save Karein</button>
+      <div class="save-flash" id="nz-flash"></div>
+    </div>
+
+    <!-- ADD NEW DUA -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div class="admin-card-title">🤲 Nayi Dua Add Karein</div>
+      <div style="font-size:11px;color:var(--txtd);margin-bottom:12px">Nai dua app mein add karein — sabko dikhegi</div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Dua ka Title</div>
+        <input class="tt-inp" id="dua-title" type="text" placeholder="Jaise: Subah ki Dua, Safar ki Dua..." style="width:100%;padding:9px;font-size:13px">
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Kab Padhein (Sub-title)</div>
+        <input class="tt-inp" id="dua-sub" type="text" placeholder="Jaise: Subah uthte waqt padhen..." style="width:100%;padding:9px;font-size:13px">
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Arabic Matn (اختياري)</div>
+        <textarea class="tt-inp" id="dua-arabic" placeholder="Arabic dua yahan likhein..." rows="3" style="width:100%;padding:9px;font-size:14px;direction:rtl;font-family:'Amiri',serif;resize:vertical"></textarea>
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Hindi Uchhaaran</div>
+        <textarea class="tt-inp" id="dua-hindi" placeholder="Hindi mein uchhaaran likhein..." rows="2" style="width:100%;padding:9px;font-size:13px;resize:vertical"></textarea>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Hindi Matlab / Tarjuma</div>
+        <textarea class="tt-inp" id="dua-matlab" placeholder="Dua ka matlab Hindi mein..." rows="2" style="width:100%;padding:9px;font-size:13px;resize:vertical"></textarea>
+      </div>
+      <button class="btn bg" onclick="addNewDua()">➕ Dua App Mein Add Karein</button>
+      <div class="save-flash" id="dua-flash"></div>
+      <div style="margin-top:12px">
+        <div style="font-size:10px;color:var(--txtd);margin-bottom:6px">Added Duas (<span id="extra-dua-count">0</span>)</div>
+        <div id="adm-dua-list"></div>
+      </div>
+    </div>
+
+    <!-- ADD NEW QUIZ QUESTION -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div class="admin-card-title">❓ Naya Quiz Sawaal Add Karein</div>
+      <div style="font-size:11px;color:var(--txtd);margin-bottom:12px">Quiz mein naye sawaal add karein — agli game mein shamil honge</div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Category</div>
+        <select class="tt-inp" id="qz-cat" style="width:100%;padding:9px;font-size:13px">
+          <option value="QURAN">QURAN</option>
+          <option value="HADITH">HADITH</option>
+          <option value="SEERAH">SEERAH</option>
+          <option value="RAMADAN">RAMADAN</option>
+          <option value="HISTORY">HISTORY</option>
+          <option value="GENERAL">GENERAL</option>
+        </select>
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Sawaal</div>
+        <textarea class="tt-inp" id="qz-q" placeholder="Quiz ka sawaal yahan likhein..." rows="2" style="width:100%;padding:9px;font-size:13px;resize:vertical"></textarea>
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">4 Options (A, B, C, D)</div>
+        <input class="tt-inp" id="qz-a" type="text" placeholder="A) Option..." style="width:100%;padding:8px;font-size:12px;margin-bottom:5px">
+        <input class="tt-inp" id="qz-b" type="text" placeholder="B) Option..." style="width:100%;padding:8px;font-size:12px;margin-bottom:5px">
+        <input class="tt-inp" id="qz-c" type="text" placeholder="C) Option..." style="width:100%;padding:8px;font-size:12px;margin-bottom:5px">
+        <input class="tt-inp" id="qz-d" type="text" placeholder="D) Option..." style="width:100%;padding:8px;font-size:12px">
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Sahi Jawab</div>
+        <select class="tt-inp" id="qz-ans" style="width:100%;padding:9px;font-size:13px">
+          <option value="0">A — Pehla Option</option>
+          <option value="1">B — Doosra Option</option>
+          <option value="2">C — Teesra Option</option>
+          <option value="3">D — Chautha Option</option>
+        </select>
+      </div>
+      <div style="margin-bottom:10px">
+        <div style="font-size:10px;color:var(--txts);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Explanation (Jawab ki wajah)</div>
+        <textarea class="tt-inp" id="qz-exp" placeholder="Sahi jawab ki wajah batayein..." rows="2" style="width:100%;padding:9px;font-size:13px;resize:vertical"></textarea>
+      </div>
+      <button class="btn bg" onclick="addNewQuiz()">➕ Quiz Sawaal Add Karein</button>
+      <div class="save-flash" id="qz-flash"></div>
+      <div style="margin-top:12px">
+        <div style="font-size:10px;color:var(--txtd);margin-bottom:6px">Added Sawaal (<span id="extra-qz-count">0</span>)</div>
+        <div id="adm-qz-list" style="max-height:180px;overflow-y:auto"></div>
+      </div>
+    </div>
+
+    <!-- REGISTERED USERS -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="admin-card-title" style="margin:0">👥 Users &amp; Quiz Scores</div>
+        <button class="btn bgr" onclick="loadUsers()" style="font-size:11px;padding:6px 12px">🔄 Refresh</button>
+      </div>
+      <div id="adm-users-list">
+        <div style="font-size:12px;color:var(--txtd);text-align:center;padding:16px">⏳ Loading...</div>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div class="admin-card" style="margin-bottom:12px">
+      <div class="admin-card-title">🛠 Admin Tools</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn bgr" onclick="resetQuizLock()" style="font-size:11px;padding:10px">🔓 Quiz Lock Reset</button>
+        <button class="btn bgr" onclick="resetTimetable()" style="font-size:11px;padding:10px">↩ TT Default Karein</button>
+        <button class="btn bo" onclick="copyAdminInfo()" style="font-size:11px;padding:10px">📋 Info Copy Karein</button>
+        <button class="btn bo" onclick="exportData()" style="font-size:11px;padding:10px">📤 Data Export</button>
+      </div>
+      <div class="save-flash" id="tools-flash"></div>
+    </div>
+
+    <!-- Admin Credentials -->
+    <div class="admin-card" style="margin-bottom:14px;border-color:rgba(255,215,0,.3)">
+      <div class="admin-card-title">🔐 Admin Credentials</div>
+      <div style="font-size:12px;color:var(--txts);line-height:1.9">
+        <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--brd)">
+          <span style="color:var(--txtd)">Admin Phone:</span>
+          <span style="color:var(--gold);font-family:monospace" id="adm-show-phone">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--brd)">
+          <span style="color:var(--txtd)">Password:</span>
+          <span style="color:var(--gold);font-family:monospace">farah@admin2026</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0">
+          <span style="color:var(--txtd)">Storage:</span>
+          <span style="color:var(--gold);font-size:10px">📱 Local (Device)</span>
+        </div>
+        
+      </div>
+    </div>
+
+    <button class="btn bo" onclick="closeAdmin()">← App Par Wapas Jaayein</button>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN APP ══════════════ -->
+<div class="app" id="main-app" style="display:none">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-user" onclick="toggleProfileMenu(event)" style="cursor:pointer">
+      <div class="topbar-avatar" id="tb-avatar">👤</div>
+      <div>
+        <div class="topbar-name" id="tb-name">—</div>
+        <div class="topbar-phone" id="tb-phone">—</div>
+      </div>
+      <span style="font-size:10px;color:var(--txtd);margin-left:2px" id="tb-arr">▾</span>
+    </div>
+
+    <!-- Profile Dropdown Menu -->
+    <div class="profile-drop" id="profile-drop">
+
+      <div class="pd-header">
+        <div class="pd-avatar">👤</div>
+        <div>
+          <div class="pd-name" id="pd-name">—</div>
+          <div class="pd-phone" id="pd-phone">—</div>
+        </div>
+      </div>
+
+      <div class="pd-div"></div>
+
+      <!-- Dark/Light Mode -->
+      <div class="pd-row" onclick="pdToggleTheme()">
+        <div class="pd-row-l"><span class="pd-ic" id="pd-theme-ic">🌙</span><div><div class="pd-txt">Dark / Light Mode</div><div class="pd-sub" id="pd-theme-st">Dark Mode</div></div></div>
+        <div class="pd-tog" id="pd-theme-tog">🌑</div>
+      </div>
+
+      <!-- Font Size -->
+      <div class="pd-row" style="flex-direction:column;align-items:stretch;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px"><span class="pd-ic">🔤</span><div class="pd-txt">Font Size</div></div>
+        <div style="display:flex;gap:6px;padding-left:32px">
+          <button class="pd-fsz" id="pd-fs-s" onclick="event.stopPropagation();pdSetFont('small')">A<br><span style="font-size:9px">Chhota</span></button>
+          <button class="pd-fsz" id="pd-fs-m" onclick="event.stopPropagation();pdSetFont('medium')">A<br><span style="font-size:9px">Beech</span></button>
+          <button class="pd-fsz" id="pd-fs-l" onclick="event.stopPropagation();pdSetFont('large')">A<br><span style="font-size:9px">Bada</span></button>
+        </div>
+      </div>
+
+      <!-- Stars -->
+      <div class="pd-row" onclick="pdToggleStars()">
+        <div class="pd-row-l"><span class="pd-ic">✨</span><div><div class="pd-txt">Taare</div><div class="pd-sub" id="pd-stars-st">Animation ON</div></div></div>
+        <div class="pd-tog" id="pd-stars-tog">⭐</div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="pd-row" onclick="pdGoSettings();event.stopPropagation()">
+        <div class="pd-row-l"><span class="pd-ic">🔔</span><div><div class="pd-txt">Notifications & More</div><div class="pd-sub">Settings screen kholen</div></div></div>
+        <div style="color:var(--txtd);font-size:12px">›</div>
+      </div>
+
+      <div class="pd-div"></div>
+
+      <!-- Admin (agar admin hai) -->
+      <div class="pd-row admin-btn hidden" id="admin-btn" onclick="openAdmin();closeProfileMenu()">
+        <div class="pd-row-l"><span class="pd-ic">⚙️</span><div class="pd-txt" style="color:var(--gold)">Admin Panel</div></div>
+        <div style="color:var(--txtd);font-size:12px">›</div>
+      </div>
+
+      <!-- Logout -->
+      <div class="pd-row" onclick="logout()">
+        <div class="pd-row-l"><span class="pd-ic">🚪</span><div class="pd-txt" style="color:#ef5350">Logout</div></div>
+      </div>
+
+    </div>
+
+    <div class="topbar-btns">
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="hdr">
+    <span class="hdr-moon">🌙</span>
+    <div class="hdr-title">Farah Ramzan Companion 2026</div>
+    <div class="hdr-bis">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="hdr-loc">📍 Farah · Mathura · UP · Ramadan 1447 Hijri</div>
+    <div class="hdr-hr"></div>
+  </div>
+
+  <!-- HOME -->
+  <div class="sc on" id="sc-home">
+    <div class="tbanner">
+      <div class="rbdg" id="h-roza">🌙 Roza — / 30</div>
+      <div class="thijri" id="h-hijri">Ramadan 1447</div>
+      <div class="tgreg" id="h-greg">—</div>
+    </div>
+    <div class="trow">
+      <div class="tcard s">
+        <div class="temi">🌙</div><div class="tlbl">Sehri (Imsak)</div>
+        <div class="tval" id="h-sv">—:——</div><div class="tap" id="h-sa">AM</div>
+      </div>
+      <div class="tcard i">
+        <div class="temi">🌅</div><div class="tlbl">Iftar (Maghrib)</div>
+        <div class="tval" id="h-iv">—:——</div><div class="tap" id="h-ia">PM</div>
+      </div>
+    </div>
+    <div class="cdbar">
+      <span class="cdlbl" id="cdlbl">Iftar countdown</span>
+      <span class="cdval" id="cdval">--:--:--</span>
+    </div>
+    <div class="idc">
+      <div class="ctitle">🌅 Iftar ki Dua</div>
+      <div class="dar-s">اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَىٰ رِزْقِكَ أَفْطَرْتُ</div>
+      <div class="dtr-s">O Allah! I fasted for You, believed in You, relied on You, and break my fast with Your provision.</div>
+      <div class="dhi-s">ऐ अल्लाह! तेरे लिए रोज़ा रखा, तुझ पर ईमान लाया, तुझ पर भरोसा किया, तेरे रिज़्क से इफ्तार किया।</div>
+    </div>
+    <div class="card">
+      <div class="frow"><span class="ctitle">📅 Ramzan Progress</span><span style="color:var(--gold);font-weight:700;font-size:13.5px" id="h-days">—</span></div>
+      <div style="font-size:12px;color:var(--txts);margin-top:6px" id="h-pmsg">Ramzan 1447 — 19 Feb to 20 Mar 2026</div>
+    </div>
+    <div class="card">
+      <div class="ctitle">⭐ Laylatul Qadr — 27vi Raat</div>
+      <div style="font-size:13px;color:var(--txts);line-height:1.6">Roza <strong style="color:var(--gold)">27</strong> — Mangalwaar, <strong style="color:var(--gold)">17 March 2026</strong><br>
+      Sehri: <strong style="color:var(--gold)">05:04 AM</strong> · Iftar: <strong style="color:var(--gold)">06:33 PM</strong><br>
+      <em style="color:var(--txtd);font-size:11px">"Laylatul Qadr hazaar mahine se behtar hai" — Al-Qadr 97:3</em></div>
+    </div>
+
+    <!-- Notification Permission Card -->
+    <div class="card" id="notif-card" style="border-color:rgba(255,215,0,.3);text-align:center">
+      <div style="font-size:26px;margin-bottom:6px">🔔</div>
+      <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:4px">Sehri & Iftar Notification</div>
+      <div style="font-size:11.5px;color:var(--txts);margin-bottom:12px;line-height:1.6">Islamic ringtone ke saath Sehri, Iftar aur Namaz ka alert milega — bilkul Azan jaisi awaaz!</div>
+      <button class="btn bg" id="notif-btn" onclick="enableNotifications()" style="font-size:12px;padding:10px">
+        🔔 Notifications Enable Karein
+      </button>
+      <div style="font-size:10px;color:var(--txtd);margin-top:8px" id="notif-status"></div>
+    </div>
+  </div>
+
+  <!-- TIMETABLE -->
+  <div class="sc" id="sc-tt">
+    <div class="sh">Ramzan 1447 — Poori Timetable</div>
+    <div style="font-size:11px;color:var(--txtd);margin-bottom:9px;text-align:center">📍 Farah, Mathura, UP · Hanafi · 1447 Hijri</div>
+    <div class="tth"><div>#</div><div>Din / Tarikh</div><div>🌙 Sehri</div><div>🌅 Iftar</div></div>
+    <div id="tt-body"></div>
+  </div>
+
+  <!-- DUAS -->
+  <div class="sc" id="sc-duas">
+    <div class="sh">Ramzan ki Khaas Duaain</div>
+    <div id="duas-container">
+    <div class="dua-block">
+      <div class="dua-hdr"><div class="dua-num">1</div><div><div class="dua-ht">🌅 Iftar ki Dua</div><div class="dua-hs">Roza kholte waqt padhen</div></div></div>
+      <div class="dua-body">
+        <div class="dua-arabic">اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَىٰ رِزْقِكَ أَفْطَرْتُ</div>
+        <div class="dua-row"><div class="dua-rlbl">🔹 Hindi Uchhaaran</div><div class="dua-rtxt hi">अल्लाहुम्मा इन्नी लका सुम्तु व बिका आमन्तु व अलैका तवक्कल्तु व अला रिज़्किका अफ़्तरतु।</div></div>
+        <div class="dua-row"><div class="dua-rlbl">🇮🇳 Hindi Matlab</div><div class="dua-rtxt tr">ऐ अल्लाह! मैंने तेरे लिए रोज़ा रखा, तुझ पर ईमान लाया, तुझ पर भरोसा किया और तेरे रिज़्क से इफ्तार किया।</div></div>
+      </div>
+    </div>
+    <div class="dua-block">
+      <div class="dua-hdr"><div class="dua-num">2</div><div><div class="dua-ht">🤲 Dua-e-Khair (Aafiyat)</div><div class="dua-hs">Duniya aur Aakhirat ki salamati ke liye</div></div></div>
+      <div class="dua-body">
+        <div class="dua-arabic">اللَّهُمَّ إِنَّا نَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ</div>
+        <div class="dua-row"><div class="dua-rlbl">🔹 Hindi Uchhaaran</div><div class="dua-rtxt hi">अल्लाहुम्मा इन्ना नसअलुका अल-अफ़्वा वल-आफ़ियता फ़िद्-दुन्या वल-आख़िरह।</div></div>
+        <div class="dua-row"><div class="dua-rlbl">🇮🇳 Hindi Matlab</div><div class="dua-rtxt tr">ऐ अल्लाह! हम तुझसे दुनिया और आख़िरत में माफ़ी और आफ़ियत मांगते हैं।</div></div>
+      </div>
+    </div>
+    <div class="dua-block">
+      <div class="dua-hdr"><div class="dua-num">3</div><div><div class="dua-ht">🌙 Sadqa-e-Fitr ki Niyyat</div><div class="dua-hs">Eid ki Namaz se pehle ada karein</div></div></div>
+      <div class="dua-body">
+        <div class="dua-arabic">نَوَيْتُ أَنْ أُؤَدِّيَ صَدَقَةَ الْفِطْرِ عَنْ نَفْسِي وَعَنْ أَوْلَادِي الصِّغَارِ لِلَّهِ تَعَالَى</div>
+        <div class="dua-row"><div class="dua-rlbl">🔹 Hindi Uchhaaran</div><div class="dua-rtxt hi">नवैतु अन उअद्दिया सदक़तल-फ़ित्र अन नफ़्सी व अन औलादी अस-सिग़ार लिल्लाहि तआला।</div></div>
+        <div class="dua-row"><div class="dua-rlbl">🇮🇳 Hindi Matlab</div><div class="dua-rtxt tr">मैं नीयत करता/करती हूँ कि अपनी और अपने छोटे बच्चों की तरफ़ से अल्लाह के लिए सदक़ा-ए-फ़ित्र अदा करूं।</div></div>
+      </div>
+    </div>
+    <div class="dua-block">
+      <div class="dua-hdr"><div class="dua-num">4</div><div><div class="dua-ht">⭐ Laylatul Qadr ki Dua</div><div class="dua-hs">27vi raat aur akhri 10 taaq raaton mein</div></div></div>
+      <div class="dua-body">
+        <div class="dua-arabic">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
+        <div class="dua-row"><div class="dua-rlbl">🔹 Hindi Uchhaaran</div><div class="dua-rtxt hi">अल्लाहुम्मा इन्नका अफुव्वुन् तुहिब्बुल-अफ़्वा फ़अफु अन्नी।</div></div>
+        <div class="dua-row"><div class="dua-rlbl">🇮🇳 Hindi Matlab</div><div class="dua-rtxt tr">ऐ अल्लाह! तू माफ़ करने वाला है और माफ़ी को पसंद करता है — पस मुझे माफ़ कर दे।</div></div>
+      </div>
+    </div>
+    <div class="dua-block">
+      <div class="dua-hdr"><div class="dua-num">5</div><div><div class="dua-ht">🌙 Sehri / Roza ki Niyyat</div><div class="dua-hs">Roza rakhne ki niyyat — Fajr se pehle</div></div></div>
+      <div class="dua-body">
+        <div class="dua-arabic">نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرِ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ لِلَّهِ تَعَالَى</div>
+        <div class="dua-row"><div class="dua-rlbl">🔹 Hindi Uchhaaran</div><div class="dua-rtxt hi">नवैतु अन असूमा सौमा शहरि रमज़ाना मिनल-फ़जरि इलल-मग़रिबि लिल्लाहि तआला।</div></div>
+        <div class="dua-row"><div class="dua-rlbl">🇮🇳 Hindi Matlab</div><div class="dua-rtxt tr">मैं नीयत करता/करती हूँ कि Ramadan के महीने का रोज़ा Fajr से Maghrib तक अल्लाह के लिए रखूं।</div></div>
+      </div>
+    </div>
+    <!-- Extra duas added by admin will appear here -->
+    <div id="extra-duas"></div>
+    </div>
+  </div>
+
+  <!-- DAILY -->
+  <div class="sc" id="sc-daily">
+    <div class="sh">Aaj ki Ayat</div>
+    <div class="card"><div class="ctitle" id="d-aref">Al-Baqarah 2:183</div><div class="ar-big" id="d-aar"></div><div class="trans" id="d-atr"></div></div>
+    <div class="sh">Aaj ki Hadith</div>
+    <div class="card"><div class="hadith-t" id="d-h"></div><div style="font-size:11px;color:var(--txtd);margin-top:7px" id="d-hs"></div></div>
+    <div class="sh">Good Deed Challenge</div>
+    <div class="card">
+      <div class="frow" style="margin-bottom:9px"><span class="ctitle" style="margin:0">🌟 Aaj ka Nek Kaam</span><span class="pts" id="d-pts">+10</span></div>
+      <div class="deed-c" id="d-deed"></div>
+      <button class="btn bg mt10" id="deed-btn" onclick="markDeed()">✅ Done kar diya!</button>
+      <div style="font-size:12px;color:var(--gold);text-align:center;margin-top:8px" class="hidden" id="deed-msg"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="sc" id="sc-quiz">
+
+    <!-- START SCREEN -->
+    <div id="q-start">
+      <div style="text-align:center;padding:24px 10px 16px">
+        <div style="font-size:56px;margin-bottom:10px;animation:fmoon 4s ease-in-out infinite">🕌</div>
+        <div style="font-family:'Cinzel Decorative',serif;font-size:17px;color:var(--gold);margin-bottom:6px">Islamic Quiz</div>
+        <div style="font-size:12px;color:var(--txts);margin-bottom:18px">Ramzan 1447 · Farah, Mathura</div>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="ctitle">📋 Quiz ke Rules</div>
+        <div style="font-size:13px;color:var(--txts);line-height:1.8">
+          🔢 &nbsp;Kul <strong style="color:var(--gold)">5 Sawaal</strong> har quiz mein<br>
+          🔒 &nbsp;<strong style="color:var(--gold)">24 Ghante</strong> baad dubara khel sakte ho<br>
+          ⏱ &nbsp;Har sawal ke liye <strong style="color:var(--gold)">30 seconds</strong><br>
+          📚 &nbsp;Quran, Hadith, Seerah, Ramzan<br>
+          🔥 &nbsp;Daily streak track hoti hai
+        </div>
+      </div>
+      <div class="card" style="text-align:center;margin-bottom:16px">
+        <div style="font-size:11px;color:var(--txtd);margin-bottom:4px">Aapka Score</div>
+        <div style="font-family:'Cinzel Decorative',serif;font-size:22px;color:var(--gold)" id="qs-total">0 pts</div>
+        <div style="font-size:10.5px;color:var(--txts);margin-top:2px">🔥 Streak: <span id="qs-streak">0</span> din</div>
+      </div>
+      <button class="btn bg" id="quiz-start-btn" onclick="beginQuiz()" style="font-size:15px;padding:15px;letter-spacing:1px">
+        ▶ Quiz Shuru Karein
+      </button>
+      <div id="quiz-limit-msg" style="display:none;font-size:12px;color:#a5d6a7;text-align:center;margin-top:10px;padding:8px;background:rgba(27,94,32,.3);border-radius:8px"></div>
+      <div style="font-size:10.5px;color:var(--txtd);text-align:center;margin-top:10px">بِسْمِ اللَّهِ — Allah ke naam se shuru karein</div>
+    </div>
+
+    <!-- PLAYING -->
+    <div id="qplay" class="hidden">
+      <div class="qmeta"><span class="qnum" id="q-num">Sawal 1 / 5</span><span class="qtmr" id="q-tmr">⏱ 30s</span></div>
+      <div class="qpbar"><div class="qpfill" id="q-fill" style="width:20%"></div></div>
+      <div class="qcat" id="q-cat">QURAN</div>
+      <div class="qq" id="q-q">Loading...</div>
+      <div id="q-opts"></div>
+      <div class="qexp" id="q-exp"></div>
+      <button class="btn bgr mt10 hidden" id="q-nxt" onclick="nextQ()">Aage Badhein →</button>
+    </div>
+
+    <!-- RESULT -->
+    <div class="qscore hidden" id="q-result">
+      <div style="font-size:40px;margin-bottom:7px">🏆</div>
+      <div class="qsbig" id="r-sc">4/5</div>
+      <div class="qsmsg" id="r-msg">Mashallah!</div>
+      <div class="qpills">
+        <div class="qpill">🔥 Streak: <strong id="r-str">0</strong> din</div>
+        <div class="qpill">⭐ Total: <strong id="r-tot">0</strong> pts</div>
+      </div>
+      <div class="card" style="text-align:left"><div class="ctitle">📊 Weekly Progress</div><div id="lb"></div></div>
+      <button class="btn bg mt13" onclick="startQuiz()">🔄 Naya Quiz Khelo</button>
+    </div>
+  </div>
+
+  <!-- NAMAZ -->
+  <div class="sc" id="sc-namaz">
+    <div class="sh">Namaz ke Awqat</div>
+    <div class="card" style="text-align:center;padding:12px 17px;margin-bottom:11px">
+      <div style="font-size:13.5px;font-weight:700;color:var(--gold)" id="n-date">—</div>
+      <div style="font-size:10.5px;color:var(--txtd)">📍 Farah, Mathura, UP · Hanafi Tariqe se</div>
+    </div>
+    <div id="n-rows"></div>
+    <div class="card" style="margin-top:11px"><div class="ctitle">ℹ️ Zaroori Note</div><div style="font-size:11.5px;color:var(--txtd);line-height:1.6">Ye awqat Farah, Mathura ke liye hain. Bilkul sahi waqt ke liye apne mahal ke imam sahab se confirm zaroor karein.</div></div>
+  </div>
+
+  <!-- CHATBOT (Gemini) -->
+  
+
+  <!-- ══════════ SETTINGS SCREEN ══════════ -->
+  <div class="sc" id="sc-settings">
+
+    <!-- Profile Card -->
+    <div class="stp-card">
+      <div class="stp-ava">👤</div>
+      <div class="stp-info">
+        <div class="stp-name" id="st-name">—</div>
+        <div class="stp-phone" id="st-phone">—</div>
+      </div>
+      <div class="stp-badge" id="st-badge">🌙 User</div>
+    </div>
+
+    <!-- ── DISPLAY ── -->
+    <div class="stg-label">🎨 DISPLAY</div>
+    <div class="stg">
+
+      <div class="sti" id="row-dark" onclick="stToggle('tog-dark')">
+        <div class="sti-ic" id="dark-ic">🌙</div>
+        <div class="sti-tx">
+          <div class="sti-t">Dark Mode</div>
+          <div class="sti-s" id="dark-st">Dark (Default)</div>
+        </div>
+        <div class="st-sw">
+          <input type="checkbox" id="tog-dark" onchange="applyTheme(this.checked)" checked>
+          <span class="st-sw-tr"></span>
+        </div>
+      </div>
+
+      <div class="sti">
+        <div class="sti-ic">🔠</div>
+        <div class="sti-tx">
+          <div class="sti-t">Font Size</div>
+          <div class="sti-s" id="st-font-lbl">Medium</div>
+        </div>
+        <div class="stfsz">
+          <button id="fb-s" onclick="setFontSize('small')"   class="stfb">A</button>
+          <button id="fb-m" onclick="setFontSize('medium')"  class="stfb stfb-on">A</button>
+          <button id="fb-l" onclick="setFontSize('large')"   class="stfb">A</button>
+        </div>
+      </div>
+
+      <div class="sti sti-last" onclick="stToggle('tog-stars')">
+        <div class="sti-ic">✨</div>
+        <div class="sti-tx">
+          <div class="sti-t">Stars Animation</div>
+          <div class="sti-s">Background twinkling</div>
+        </div>
+        <div class="st-sw">
+          <input type="checkbox" id="tog-stars" onchange="toggleStars(this.checked)" checked>
+          <span class="st-sw-tr"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NOTIFICATIONS ── -->
+    <div class="stg-label">🔔 NOTIFICATIONS</div>
+    <div class="stg">
+
+      <!-- Master enable -->
+      <div class="sti">
+        <div class="sti-ic">🔔</div>
+        <div class="sti-tx">
+          <div class="sti-t">Notifications</div>
+          <div class="sti-s" id="st-notif-status">Tap karke ON karein</div>
+        </div>
+        <button class="st-enb" id="st-notif-btn" onclick="enableNotifFromSettings()">Enable</button>
+      </div>
+
+      <div class="sti" onclick="stToggle('tog-sehri')">
+        <div class="sti-ic">🌙</div>
+        <div class="sti-tx">
+          <div class="sti-t">Sehri Alert</div>
+          <div class="sti-s">Khatam hone se 10 min pehle</div>
+        </div>
+        <div class="st-sw">
+          <input type="checkbox" id="tog-sehri" onchange="saveSetting('sehri_alert',this.checked)" checked>
+          <span class="st-sw-tr"></span>
+        </div>
+      </div>
+
+      <div class="sti" onclick="stToggle('tog-iftar')">
+        <div class="sti-ic">🌅</div>
+        <div class="sti-tx">
+          <div class="sti-t">Iftar Alert</div>
+          <div class="sti-s">Waqt par + 5 min pehle</div>
+        </div>
+        <div class="st-sw">
+          <input type="checkbox" id="tog-iftar" onchange="saveSetting('iftar_alert',this.checked)" checked>
+          <span class="st-sw-tr"></span>
+        </div>
+      </div>
+
+      <div class="sti" onclick="stToggle('tog-namaz-alert')">
+        <div class="sti-ic">🕌</div>
+        <div class="sti-tx">
+          <div class="sti-t">Namaz Alert</div>
+          <div class="sti-s">Panchon waqt ka alert</div>
+        </div>
+        <div class="st-sw">
+          <input type="checkbox" id="tog-namaz-alert" onchange="saveSetting('namaz_alert',this.checked)" checked>
+          <span class="st-sw-tr"></span>
+        </div>
+      </div>
+
+      <div class="sti" onclick="stToggle('tog-sound')">
+        <div class="sti-ic">🎵</div>
+        <div class="sti-tx">
+          <div class="sti-t">Islamic Ringtone</div>
+          <div class="sti-s">Azan jaisi awaaz ke saath</div>
+        </div>
+        <div class="st-sw">
+          <input type="checkbox" id="tog-sound" onchange="saveSetting('sound',this.checked)" checked>
+          <span class="st-sw-tr"></span>
+        </div>
+      </div>
+
+      <div class="sti sti-last sti-tap" onclick="testSound()">
+        <div class="sti-ic">▶️</div>
+        <div class="sti-tx">
+          <div class="sti-t">Ringtone Test</div>
+          <div class="sti-s">Islamic tone abhi sunein</div>
+        </div>
+        <div class="sti-arr">›</div>
+      </div>
+    </div>
+
+    <!-- ── STATS ── -->
+    <div class="stg-label">📊 PROGRESS</div>
+    <div class="stg-stats">
+      <div class="stg-stat">
+        <div class="stg-sv" id="st-streak">0</div>
+        <div class="stg-sl">🔥 Streak</div>
+      </div>
+      <div class="stg-stat">
+        <div class="stg-sv" id="st-pts">0</div>
+        <div class="stg-sl">⭐ Points</div>
+      </div>
+      <div class="stg-stat">
+        <div class="stg-sv" id="st-deed-pts">0</div>
+        <div class="stg-sl">💚 Deeds</div>
+      </div>
+      <div class="stg-stat">
+        <div class="stg-sv" id="st-roza-left">—</div>
+        <div class="stg-sl">🌙 Baki Roza</div>
+      </div>
+    </div>
+
+    <!-- ── QUIZ ── -->
+    <div class="stg-label">🎯 QUIZ</div>
+    <div class="stg">
+      <div class="sti sti-last">
+        <div class="sti-ic">🔒</div>
+        <div class="sti-tx">
+          <div class="sti-t">24h Quiz Lock</div>
+          <div class="sti-s" id="st-quiz-lock">Checking...</div>
+        </div>
+        <button class="st-enb" onclick="resetFromSettings()">Reset</button>
+      </div>
+    </div>
+
+    <!-- ── ACCOUNT ── -->
+    <div class="stg-label">👤 ACCOUNT</div>
+    <div class="stg">
+      <div class="sti sti-tap" onclick="logout()">
+        <div class="sti-ic">🚪</div>
+        <div class="sti-tx">
+          <div class="sti-t">Logout</div>
+          <div class="sti-s">App se bahar jaayein</div>
+        </div>
+        <div class="sti-arr">›</div>
+      </div>
+      <div class="sti sti-last sti-tap" onclick="clearAllData()" style="border-top:1px solid rgba(239,83,80,.15)">
+        <div class="sti-ic" style="background:rgba(239,83,80,.15)">🗑</div>
+        <div class="sti-tx">
+          <div class="sti-t" style="color:#ef9a9a">Data Clear Karein</div>
+          <div class="sti-s">Score, streak sab delete hoga</div>
+        </div>
+        <div class="sti-arr" style="color:#ef5350">›</div>
+      </div>
+    </div>
+
+    <div class="st-ver">
+      <div style="font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:12px;margin-bottom:4px">🌙 Farah Ramzan Companion</div>
+      Ramadan 1447 · Farah, Mathura · Hanafi<br>
+      <span style="color:rgba(255,215,0,.3)">v3.0 · Made with 💚</span>
+    </div>
+
+  </div>
+
+</div><!-- end .app -->
+
+<!-- BOTTOM NAV -->
+<div class="bnav" id="bnav" style="display:none">
+  <button class="nb on" onclick="go('sc-home',this)"><span class="ni">🏠</span>Home</button>
+  <button class="nb" onclick="go('sc-tt',this)"><span class="ni">🗓</span>Timetable</button>
+  <button class="nb" onclick="go('sc-duas',this)"><span class="ni">🤲</span>Duas</button>
+  <button class="nb" onclick="go('sc-daily',this)"><span class="ni">📖</span>Daily</button>
+  <button class="nb" onclick="go('sc-quiz',this)"><span class="ni">🎯</span>Quiz</button>
+  <button class="nb" onclick="go('sc-namaz',this)"><span class="ni">🕌</span>Namaz</button>
+  
+</div>
+
+
+<!-- ══════════════ PWA INSTALL BANNER ══════════════ -->
+<div id="pwa-banner" class="hidden">
+  <div class="pwa-icon">🌙</div>
+  <div class="pwa-text">
+    <div class="pwa-title">App Install Karein!</div>
+    <div class="pwa-sub">Home Screen par add karein — bilkul app jaisa</div>
+  </div>
+  <div class="pwa-btns">
+    <button class="pwa-install" onclick="pwaTriggerInstall()">📲 Install</button>
+    <button class="pwa-dismiss" onclick="pwaDismiss()">Baad mein</button>
+  </div>
+</div>
+
+<!-- Floating install button (after banner dismissed) -->
+<button id="pwa-fab" onclick="pwaTriggerInstall()" title="App Install Karein">📲</button>
+
+<!-- Toast notification -->
+<div id="pwa-toast">✅ App install ho gayi! Home Screen dekhen 🌙</div>
+
+<!-- iOS Guide Modal -->
+<div id="ios-guide" class="hidden">
+  <div class="ios-box">
+    <div class="ios-title">🍎 iOS Par Install Karein</div>
+    <div class="ios-steps">
+      <div class="ios-step"><div class="ios-num">1</div><div>Safari browser mein yeh page kholein (Chrome/Firefox se nahi chalega)</div></div>
+      <div class="ios-step"><div class="ios-num">2</div><div>Neeche <strong style="color:var(--gold)">Share button</strong> (⬆️) par tap karein</div></div>
+      <div class="ios-step"><div class="ios-num">3</div><div><strong style="color:var(--gold)">"Add to Home Screen"</strong> par tap karein</div></div>
+      <div class="ios-step"><div class="ios-num">4</div><div>Upar <strong style="color:var(--gold)">"Add"</strong> par tap karein — bas ho gayi!</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--txtd);margin-bottom:10px">App icon Home Screen par 🌙 nazar aayegi</div>
+    <button class="ios-close" onclick="closeIosGuide()">✓ Samajh gaya — Band Karein</button>
+  </div>
+</div>
+
+
+<script src="manifest.js"></script>
+<script src="app.js"></script>
+<script src="pwa.js"></script>
+</body>
+</html>
